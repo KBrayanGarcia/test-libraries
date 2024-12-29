@@ -5,5 +5,5 @@ export const Route = createLazyFileRoute('/')({
 });
 
 function Index() {
-  return <div>Hello "/"!</div>;
+  return <div>Pagina inicial de la aplicación</div>;
 }
