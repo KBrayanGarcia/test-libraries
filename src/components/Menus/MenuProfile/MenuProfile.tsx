@@ -1,7 +1,7 @@
 import { Menu, MenuItem } from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
-import useMenuProfile from './useMenuProfile';
+import { useMenuProfile } from './useMenuProfile';
 
 const MenuProfile = () => {
   const { anchorEl, handleMenu, handleClose, logout } = useMenuProfile();

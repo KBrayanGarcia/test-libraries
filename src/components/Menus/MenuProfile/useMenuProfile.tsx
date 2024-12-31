@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 
-const useMenuProfile = () => {
+export const useMenuProfile = () => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -21,5 +21,3 @@ const useMenuProfile = () => {
 
   return { anchorEl, handleMenu, handleClose, logout };
 };
-
-export default useMenuProfile;

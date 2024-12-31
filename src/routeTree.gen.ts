@@ -13,12 +13,13 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as AdminIndexImport } from './routes/admin/index'
+import { Route as AdminTablasTablaserverImport } from './routes/admin/tablas/tablaserver'
 
 // Create Virtual Routes
 
 const IndexLazyImport = createFileRoute('/')()
 const LoginIndexLazyImport = createFileRoute('/login/')()
-const AdminIndexLazyImport = createFileRoute('/admin/')()
 
 // Create/Update Routes
 
@@ -34,11 +35,17 @@ const LoginIndexLazyRoute = LoginIndexLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/login/index.lazy').then((d) => d.Route))
 
-const AdminIndexLazyRoute = AdminIndexLazyImport.update({
+const AdminIndexRoute = AdminIndexImport.update({
   id: '/admin/',
   path: '/admin/',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/admin/index.lazy').then((d) => d.Route))
+} as any)
+
+const AdminTablasTablaserverRoute = AdminTablasTablaserverImport.update({
+  id: '/admin/tablas/tablaserver',
+  path: '/admin/tablas/tablaserver',
+  getParentRoute: () => rootRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -55,7 +62,7 @@ declare module '@tanstack/react-router' {
       id: '/admin/'
       path: '/admin'
       fullPath: '/admin'
-      preLoaderRoute: typeof AdminIndexLazyImport
+      preLoaderRoute: typeof AdminIndexImport
       parentRoute: typeof rootRoute
     }
     '/login/': {
@@ -65,6 +72,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginIndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/admin/tablas/tablaserver': {
+      id: '/admin/tablas/tablaserver'
+      path: '/admin/tablas/tablaserver'
+      fullPath: '/admin/tablas/tablaserver'
+      preLoaderRoute: typeof AdminTablasTablaserverImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -72,42 +86,47 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
-  '/admin': typeof AdminIndexLazyRoute
+  '/admin': typeof AdminIndexRoute
   '/login': typeof LoginIndexLazyRoute
+  '/admin/tablas/tablaserver': typeof AdminTablasTablaserverRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
-  '/admin': typeof AdminIndexLazyRoute
+  '/admin': typeof AdminIndexRoute
   '/login': typeof LoginIndexLazyRoute
+  '/admin/tablas/tablaserver': typeof AdminTablasTablaserverRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
-  '/admin/': typeof AdminIndexLazyRoute
+  '/admin/': typeof AdminIndexRoute
   '/login/': typeof LoginIndexLazyRoute
+  '/admin/tablas/tablaserver': typeof AdminTablasTablaserverRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/login'
+  fullPaths: '/' | '/admin' | '/login' | '/admin/tablas/tablaserver'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/login'
-  id: '__root__' | '/' | '/admin/' | '/login/'
+  to: '/' | '/admin' | '/login' | '/admin/tablas/tablaserver'
+  id: '__root__' | '/' | '/admin/' | '/login/' | '/admin/tablas/tablaserver'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
-  AdminIndexLazyRoute: typeof AdminIndexLazyRoute
+  AdminIndexRoute: typeof AdminIndexRoute
   LoginIndexLazyRoute: typeof LoginIndexLazyRoute
+  AdminTablasTablaserverRoute: typeof AdminTablasTablaserverRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
-  AdminIndexLazyRoute: AdminIndexLazyRoute,
+  AdminIndexRoute: AdminIndexRoute,
   LoginIndexLazyRoute: LoginIndexLazyRoute,
+  AdminTablasTablaserverRoute: AdminTablasTablaserverRoute,
 }
 
 export const routeTree = rootRoute
@@ -122,17 +141,21 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/admin/",
-        "/login/"
+        "/login/",
+        "/admin/tablas/tablaserver"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
     },
     "/admin/": {
-      "filePath": "admin/index.lazy.tsx"
+      "filePath": "admin/index.tsx"
     },
     "/login/": {
       "filePath": "login/index.lazy.tsx"
+    },
+    "/admin/tablas/tablaserver": {
+      "filePath": "admin/tablas/tablaserver.tsx"
     }
   }
 }
