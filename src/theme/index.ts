@@ -6,6 +6,9 @@ let theme = createTheme({
   },
   palette: {
     mode: 'light',
+    primary: {
+      main: '#1B264F',
+    },
   },
 });
 

@@ -1,7 +1,7 @@
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { Link } from '@tanstack/react-router';
-import InventoryIcon from '@mui/icons-material/Inventory';
 import useSidebarAdmin from './useSidebarAdmin';
+import { TableViewSharp } from '@mui/icons-material';
 
 interface SidebarAdminProps {
   collapsed: boolean;
@@ -31,7 +31,7 @@ const SidebarAdmin = ({ collapsed, toggled, onBackdropClick }: SidebarAdminProps
           },
         }}
       >
-        <SubMenu icon={<InventoryIcon />} label="Tablas">
+        <SubMenu icon={<TableViewSharp />} label="Tablas">
           <MenuItem component={<Link to="/admin/tablas/get-server" />}>Paginación desde servidor</MenuItem>
           <MenuItem component={<Link to="/admin/tablas/local" />}>Pategorías</MenuItem>
         </SubMenu>
