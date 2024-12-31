@@ -4,7 +4,7 @@ import { IconButton } from '@mui/material';
 import useMenuProfile from './useMenuProfile';
 
 const MenuProfile = () => {
-  const { anchorEl, handleMenu, handleClose } = useMenuProfile();
+  const { anchorEl, handleMenu, handleClose, logout } = useMenuProfile();
   return (
     <div>
       <IconButton
@@ -34,6 +34,7 @@ const MenuProfile = () => {
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
     </div>
   );
