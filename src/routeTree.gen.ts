@@ -13,8 +13,11 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as AdminImport } from './routes/admin'
 import { Route as AdminIndexImport } from './routes/admin/index'
-import { Route as AdminTablasTablaserverImport } from './routes/admin/tablas/tablaserver'
+import { Route as AdminTablasImport } from './routes/admin/tablas'
+import { Route as AdminTablasLocalImport } from './routes/admin/tablas/local'
+import { Route as AdminTablasGetServerImport } from './routes/admin/tablas/get-server'
 
 // Create Virtual Routes
 
@@ -22,6 +25,12 @@ const IndexLazyImport = createFileRoute('/')()
 const LoginIndexLazyImport = createFileRoute('/login/')()
 
 // Create/Update Routes
+
+const AdminRoute = AdminImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexLazyRoute = IndexLazyImport.update({
   id: '/',
@@ -36,15 +45,27 @@ const LoginIndexLazyRoute = LoginIndexLazyImport.update({
 } as any).lazy(() => import('./routes/login/index.lazy').then((d) => d.Route))
 
 const AdminIndexRoute = AdminIndexImport.update({
-  id: '/admin/',
-  path: '/admin/',
-  getParentRoute: () => rootRoute,
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
 } as any)
 
-const AdminTablasTablaserverRoute = AdminTablasTablaserverImport.update({
-  id: '/admin/tablas/tablaserver',
-  path: '/admin/tablas/tablaserver',
-  getParentRoute: () => rootRoute,
+const AdminTablasRoute = AdminTablasImport.update({
+  id: '/tablas',
+  path: '/tablas',
+  getParentRoute: () => AdminRoute,
+} as any)
+
+const AdminTablasLocalRoute = AdminTablasLocalImport.update({
+  id: '/local',
+  path: '/local',
+  getParentRoute: () => AdminTablasRoute,
+} as any)
+
+const AdminTablasGetServerRoute = AdminTablasGetServerImport.update({
+  id: '/get-server',
+  path: '/get-server',
+  getParentRoute: () => AdminTablasRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -58,12 +79,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/admin/': {
-      id: '/admin/'
+    '/admin': {
+      id: '/admin'
       path: '/admin'
       fullPath: '/admin'
-      preLoaderRoute: typeof AdminIndexImport
+      preLoaderRoute: typeof AdminImport
       parentRoute: typeof rootRoute
+    }
+    '/admin/tablas': {
+      id: '/admin/tablas'
+      path: '/tablas'
+      fullPath: '/admin/tablas'
+      preLoaderRoute: typeof AdminTablasImport
+      parentRoute: typeof AdminImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexImport
+      parentRoute: typeof AdminImport
     }
     '/login/': {
       id: '/login/'
@@ -72,61 +107,121 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginIndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/admin/tablas/tablaserver': {
-      id: '/admin/tablas/tablaserver'
-      path: '/admin/tablas/tablaserver'
-      fullPath: '/admin/tablas/tablaserver'
-      preLoaderRoute: typeof AdminTablasTablaserverImport
-      parentRoute: typeof rootRoute
+    '/admin/tablas/get-server': {
+      id: '/admin/tablas/get-server'
+      path: '/get-server'
+      fullPath: '/admin/tablas/get-server'
+      preLoaderRoute: typeof AdminTablasGetServerImport
+      parentRoute: typeof AdminTablasImport
+    }
+    '/admin/tablas/local': {
+      id: '/admin/tablas/local'
+      path: '/local'
+      fullPath: '/admin/tablas/local'
+      preLoaderRoute: typeof AdminTablasLocalImport
+      parentRoute: typeof AdminTablasImport
     }
   }
 }
 
 // Create and export the route tree
 
+interface AdminTablasRouteChildren {
+  AdminTablasGetServerRoute: typeof AdminTablasGetServerRoute
+  AdminTablasLocalRoute: typeof AdminTablasLocalRoute
+}
+
+const AdminTablasRouteChildren: AdminTablasRouteChildren = {
+  AdminTablasGetServerRoute: AdminTablasGetServerRoute,
+  AdminTablasLocalRoute: AdminTablasLocalRoute,
+}
+
+const AdminTablasRouteWithChildren = AdminTablasRoute._addFileChildren(
+  AdminTablasRouteChildren,
+)
+
+interface AdminRouteChildren {
+  AdminTablasRoute: typeof AdminTablasRouteWithChildren
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminTablasRoute: AdminTablasRouteWithChildren,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
-  '/admin': typeof AdminIndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/admin/tablas': typeof AdminTablasRouteWithChildren
+  '/admin/': typeof AdminIndexRoute
   '/login': typeof LoginIndexLazyRoute
-  '/admin/tablas/tablaserver': typeof AdminTablasTablaserverRoute
+  '/admin/tablas/get-server': typeof AdminTablasGetServerRoute
+  '/admin/tablas/local': typeof AdminTablasLocalRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
+  '/admin/tablas': typeof AdminTablasRouteWithChildren
   '/admin': typeof AdminIndexRoute
   '/login': typeof LoginIndexLazyRoute
-  '/admin/tablas/tablaserver': typeof AdminTablasTablaserverRoute
+  '/admin/tablas/get-server': typeof AdminTablasGetServerRoute
+  '/admin/tablas/local': typeof AdminTablasLocalRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/admin/tablas': typeof AdminTablasRouteWithChildren
   '/admin/': typeof AdminIndexRoute
   '/login/': typeof LoginIndexLazyRoute
-  '/admin/tablas/tablaserver': typeof AdminTablasTablaserverRoute
+  '/admin/tablas/get-server': typeof AdminTablasGetServerRoute
+  '/admin/tablas/local': typeof AdminTablasLocalRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/login' | '/admin/tablas/tablaserver'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/admin/tablas'
+    | '/admin/'
+    | '/login'
+    | '/admin/tablas/get-server'
+    | '/admin/tablas/local'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/login' | '/admin/tablas/tablaserver'
-  id: '__root__' | '/' | '/admin/' | '/login/' | '/admin/tablas/tablaserver'
+  to:
+    | '/'
+    | '/admin/tablas'
+    | '/admin'
+    | '/login'
+    | '/admin/tablas/get-server'
+    | '/admin/tablas/local'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/admin/tablas'
+    | '/admin/'
+    | '/login/'
+    | '/admin/tablas/get-server'
+    | '/admin/tablas/local'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
-  AdminIndexRoute: typeof AdminIndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
   LoginIndexLazyRoute: typeof LoginIndexLazyRoute
-  AdminTablasTablaserverRoute: typeof AdminTablasTablaserverRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
-  AdminIndexRoute: AdminIndexRoute,
+  AdminRoute: AdminRouteWithChildren,
   LoginIndexLazyRoute: LoginIndexLazyRoute,
-  AdminTablasTablaserverRoute: AdminTablasTablaserverRoute,
 }
 
 export const routeTree = rootRoute
@@ -140,22 +235,42 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/admin/",
-        "/login/",
-        "/admin/tablas/tablaserver"
+        "/admin",
+        "/login/"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
     },
+    "/admin": {
+      "filePath": "admin.tsx",
+      "children": [
+        "/admin/tablas",
+        "/admin/"
+      ]
+    },
+    "/admin/tablas": {
+      "filePath": "admin/tablas.tsx",
+      "parent": "/admin",
+      "children": [
+        "/admin/tablas/get-server",
+        "/admin/tablas/local"
+      ]
+    },
     "/admin/": {
-      "filePath": "admin/index.tsx"
+      "filePath": "admin/index.tsx",
+      "parent": "/admin"
     },
     "/login/": {
       "filePath": "login/index.lazy.tsx"
     },
-    "/admin/tablas/tablaserver": {
-      "filePath": "admin/tablas/tablaserver.tsx"
+    "/admin/tablas/get-server": {
+      "filePath": "admin/tablas/get-server.tsx",
+      "parent": "/admin/tablas"
+    },
+    "/admin/tablas/local": {
+      "filePath": "admin/tablas/local.tsx",
+      "parent": "/admin/tablas"
     }
   }
 }

@@ -32,8 +32,8 @@ const SidebarAdmin = ({ collapsed, toggled, onBackdropClick }: SidebarAdminProps
         }}
       >
         <SubMenu icon={<InventoryIcon />} label="Tablas">
-          <MenuItem component={<Link to="/admin/tablas/tablaserver" />}>Paginación desde servidor</MenuItem>
-          <MenuItem component={<Link to="/admin/tablas/tablaserver" />}>Pategorías</MenuItem>
+          <MenuItem component={<Link to="/admin/tablas/get-server" />}>Paginación desde servidor</MenuItem>
+          <MenuItem component={<Link to="/admin/tablas/local" />}>Pategorías</MenuItem>
         </SubMenu>
       </Menu>
     </Sidebar>
