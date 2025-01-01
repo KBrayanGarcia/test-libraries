@@ -1,3 +1,5 @@
+import { Box, Button } from '@mui/material';
+import TablaServer from '@/components/Tablas/TablaServer/TablaServer';
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/admin/tablas/get-server')({
@@ -5,5 +7,13 @@ export const Route = createFileRoute('/admin/tablas/get-server')({
 })
 
 function RouteComponent() {
-  return <div>Hello "/admin/tablas/get-server"!</div>;
+  return (
+    <Box>
+      <TablaServer />
+      <Button variant="contained" color="primary">Primario</Button>
+      <Button variant="contained" color="secondary">Secundario</Button>
+      <Button variant="contained" color="error">Error</Button>
+      <Button variant="contained" color="success">Success</Button>
+    </Box>
+  );
 }
