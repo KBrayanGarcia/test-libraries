@@ -17,7 +17,7 @@ const SidebarAdmin = ({ collapsed, toggled, onBackdropClick }: SidebarAdminProps
       collapsed={collapsed}
       toggled={toggled}
       breakPoint="md"
-      backgroundColor={theme.palette.background.default}
+      backgroundColor={theme.palette.primary.main}
       onBackdropClick={onBackdropClick}
     >
       <Menu
@@ -25,8 +25,8 @@ const SidebarAdmin = ({ collapsed, toggled, onBackdropClick }: SidebarAdminProps
           button: ({ level, active }) => {
             if (level === 0)
               return {
-                color: active ? '#6200EA' : '#455A64',
-                backgroundColor: active ? '#EDE7F6' : undefined,
+                color: active ? theme.palette.action.active : theme.palette.primary.contrastText,
+                backgroundColor: active ? theme.palette.primary.main : undefined,
               };
           },
         }}

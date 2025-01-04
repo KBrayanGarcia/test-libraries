@@ -1,8 +1,8 @@
 import { Paper, TableBody, Table, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 const TablaServer = () => {
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="simple table">
+    <TableContainer component={Paper} sx={{ overflow: 'auto', maxWidth: '100%' }}>
+      <Table aria-label="simple table" sx={{ height: '100%', maxWidth: '100%' }}>
         <TableHead>
           <TableRow>
             <TableCell>Dessert (100g serving)</TableCell>

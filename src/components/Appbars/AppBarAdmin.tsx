@@ -9,7 +9,7 @@ interface AppBarAdminProps {
 
 const AppBarAdmin = ({ onMenuClick }: AppBarAdminProps) => {
   return (
-    <AppBar position="static">
+    <AppBar position="static" variant='elevation' color='transparent'>
       <Toolbar>
         <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={onMenuClick}>
           <MenuIcon />

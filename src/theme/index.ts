@@ -2,7 +2,7 @@ import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 
 let theme = createTheme({
   typography: {
-    fontFamily: 'Roboto, sans-serif',
+    fontFamily: 'Poppins',
   },
   palette: {
     mode: 'light',
@@ -11,16 +11,22 @@ let theme = createTheme({
       contrastText: '#ffffff',
     },
     secondary: {
-      main: '#88752e',
+      main: '#cfa616',
       contrastText: '#ffffff',
     },
     error: {
-      main: '#882e41',
+      main: '#8d2c38',
       contrastText: '#ffffff',
     },
     success: {
-      main: '#41882e',
+      main: '#006446',
       contrastText: '#ffffff',
+    },
+    background: {
+      default: '#edeeff',
+    },
+    text: {
+      primary: '#1B264F',
     },
   },
   components: {
