@@ -1,3 +1,4 @@
+import { VARS_THEME } from '@/vars/theme';
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 
 let theme = createTheme({
@@ -7,26 +8,26 @@ let theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#1B264F',
-      contrastText: '#ffffff',
+      main: VARS_THEME.primary,
+      contrastText: VARS_THEME.primaryTextContrast,
     },
     secondary: {
-      main: '#cfa616',
-      contrastText: '#ffffff',
+      main: VARS_THEME.secondary,
+      contrastText: VARS_THEME.secondaryTextContrast,
     },
     error: {
-      main: '#8d2c38',
-      contrastText: '#ffffff',
+      main: VARS_THEME.error,
+      contrastText: VARS_THEME.errorTextContrast,
     },
     success: {
-      main: '#006446',
-      contrastText: '#ffffff',
+      main: VARS_THEME.success,
+      contrastText: VARS_THEME.successTextContrast,
     },
     background: {
-      default: '#edeeff',
+      default: VARS_THEME.background,
     },
     text: {
-      primary: '#1B264F',
+      primary: VARS_THEME.primary,
     },
   },
   components: {
