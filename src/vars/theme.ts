@@ -1,5 +1,5 @@
 export const VARS_THEME = {
-  primary: '#006446',
+  primary: '#1B264F',
   primaryTextContrast: '#ffffff',
   secondary: '#cfa616',
   secondaryTextContrast: '#ffffff',
