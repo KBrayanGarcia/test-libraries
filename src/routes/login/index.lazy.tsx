@@ -1,7 +1,9 @@
-import { Box, Button, Card, CardContent, CardHeader, Typography } from '@mui/material';
 import { createLazyFileRoute } from '@tanstack/react-router';
-import Grid from '@mui/material/Grid2';
 import useStatePageLogin from '@/hooks/pages/useStatePageLogin';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export const Route = createLazyFileRoute('/login/')({
   component: RouteComponent,
@@ -11,30 +13,31 @@ function RouteComponent() {
   const { handleSubmit } = useStatePageLogin();
 
   return (
-    <Box>
-      <Grid
-        container
-        sx={{
-          height: '100vh',
-          width: '100vw',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Grid size={2} sx={{ backgroundColor: 'darkgoldenrod' }}>
-          <Card elevation={3}>
-            <CardHeader title="Iniciar sesión" />
-            <CardContent>
-              <Typography variant="h6">Usuario</Typography>
-              <Typography variant="h6">Contraseña</Typography>
-              <Button variant="contained" color="primary" type="button" onClick={handleSubmit}>
-                Iniciar sesión
-              </Button>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
-    </Box>
+    <div className="flex items-center justify-center h-screen">
+      <div>
+        <Card>
+          <CardHeader>
+            <CardTitle>Iniciar sesión</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="mb-4">
+              <Label htmlFor="username" className="block mb-2">
+                Usuario
+              </Label>
+              <Input id="username" />
+            </div>
+            <div className="mb-4">
+              <Label htmlFor="password" className="block mb-2">
+                Contraseña
+              </Label>
+              <Input id="password" />
+            </div>
+            <Button onClick={handleSubmit} className="w-full">
+              Iniciar sesión
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
   );
 }

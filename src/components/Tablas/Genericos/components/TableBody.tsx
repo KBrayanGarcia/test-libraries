@@ -1,5 +1,6 @@
-import { CircularProgress, TableBody as MuiTableBody, TableCell, TableRow } from '@mui/material';
+import { TableBody as TableBodyCustom, TableCell, TableRow } from '@/components/ui/table';
 import { flexRender, Row } from '@tanstack/react-table';
+import { Loader2 } from 'lucide-react';
 
 interface TableBodyProps<T extends object> {
   rows: Row<T>[];
@@ -8,27 +9,24 @@ interface TableBodyProps<T extends object> {
 
 export function TableBody<T extends object>({ rows, isLoading }: TableBodyProps<T>) {
   return (
-    <MuiTableBody>
+    <TableBodyCustom>
       {isLoading ? (
         <TableRow>
-          <TableCell colSpan={100} sx={{ textAlign: 'center' }}>
-            <CircularProgress />
+          <TableCell colSpan={100}>
+            <div className="flex justify-center items-center">
+              <Loader2 className="animate-spin" />
+            </div>
           </TableCell>
         </TableRow>
       ) : (
         rows.map((row) => (
-          <TableRow
-            key={row.id}
-            sx={{
-              '&:last-child td, &:last-child th': { border: 0 },
-            }}
-          >
+          <TableRow key={row.id} className="hover:bg-muted/50">
             {row.getVisibleCells().map((cell) => (
               <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
             ))}
           </TableRow>
         ))
       )}
-    </MuiTableBody>
+    </TableBodyCustom>
   );
 }

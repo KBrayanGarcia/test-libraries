@@ -1,16 +1,16 @@
-import { TableCell, TableHead, TableRow } from '@mui/material';
+import { TableHead, TableHeader as TableHeaderCustom, TableRow } from '@/components/ui/table';
 import { flexRender, HeaderGroup } from '@tanstack/react-table';
 
-export function TableHeader<T extends object>({headers}: {headers: HeaderGroup<T>[]}) {
+export function TableHeader<T extends object>({ headers }: { headers: HeaderGroup<T>[] }) {
   return (
-    <TableHead>
+    <TableHeaderCustom>
       {headers.map((headerGroup) => (
         <TableRow key={headerGroup.id}>
           {headerGroup.headers.map((header) => (
-            <TableCell key={header.id}>{flexRender(header.column.columnDef.header, header.getContext())}</TableCell>
+            <TableHead key={header.id}>{flexRender(header.column.columnDef.header, header.getContext())}</TableHead>
           ))}
         </TableRow>
       ))}
-    </TableHead>
+    </TableHeaderCustom>
   );
 }

@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, CardHeader } from '@mui/material';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CustomTable } from '@/components/Tablas/Genericos/TableFactory';
 import { TableType } from '@/components/Tablas/Genericos/types';
 import { createFileRoute } from '@tanstack/react-router';
@@ -38,9 +38,11 @@ function RouteComponent() {
   ];
 
   return (
-    <Box>
+    <div>
       <Card>
-        <CardHeader title="Tabla Server" />
+        <CardHeader>
+          <CardTitle>Tabla Server</CardTitle>
+        </CardHeader>
         <CardContent>
           <CustomTable
             columns={columns}
@@ -50,6 +52,6 @@ function RouteComponent() {
           />
         </CardContent>
       </Card>
-    </Box>
+    </div>
   );
 }

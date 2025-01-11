@@ -1,6 +1,5 @@
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { Link } from '@tanstack/react-router';
-import useSidebarAdmin from './useSidebarAdmin';
 import { TableViewSharp } from '@mui/icons-material';
 
 interface SidebarAdminProps {
@@ -10,30 +9,42 @@ interface SidebarAdminProps {
 }
 
 const SidebarAdmin = ({ collapsed, toggled, onBackdropClick }: SidebarAdminProps) => {
-  const { theme } = useSidebarAdmin();
-
   return (
     <Sidebar
       collapsed={collapsed}
       toggled={toggled}
       breakPoint="md"
-      backgroundColor={theme.palette.primary.main}
       onBackdropClick={onBackdropClick}
+      rootStyles={{
+        '.ps-sidebar-container': {
+          backgroundColor: 'hsl(var(--primary))',
+        },
+      }}
     >
       <Menu
         menuItemStyles={{
-          button: ({ level, active }) => {
-            if (level === 0)
-              return {
-                color: active ? theme.palette.action.active : theme.palette.primary.contrastText,
-                backgroundColor: active ? theme.palette.primary.main : undefined,
-              };
+          button: () => {
+            return {
+              [`&`]: {
+                backgroundColor: 'hsl(var(--primary))',
+                color: 'hsl(var(--primary-foreground))',
+                '&.active': {
+                  backgroundColor: 'hsl(var(--accent))',
+                  color: 'hsl(var(--accent-foreground))',
+                },
+                '&:hover:not(.active)': {
+                  backgroundColor: 'hsl(var(--primary))',
+                  color: 'hsl(var(--primary-foreground))',
+                  opacity: '0.8',
+                },
+              },
+            };
           },
         }}
       >
         <SubMenu icon={<TableViewSharp />} label="Tablas">
           <MenuItem component={<Link to="/admin/tablas/get-server" />}>Paginación desde servidor</MenuItem>
-          <MenuItem component={<Link to="/admin/tablas/local" />}>Pategorías</MenuItem>
+          <MenuItem component={<Link to="/admin/tablas/local" />}>Paginación local</MenuItem>
         </SubMenu>
       </Menu>
     </Sidebar>

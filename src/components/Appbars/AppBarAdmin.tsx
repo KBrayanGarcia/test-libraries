@@ -1,7 +1,7 @@
-import { AppBar, Toolbar, IconButton, Typography } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import { Menu } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { version, displayName } from '../../../package.json';
 import MenuProfile from '../Menus/MenuProfile/MenuProfile';
-import { displayName, version } from '../../../package.json';
 
 interface AppBarAdminProps {
   onMenuClick: () => void;
@@ -9,20 +9,19 @@ interface AppBarAdminProps {
 
 const AppBarAdmin = ({ onMenuClick }: AppBarAdminProps) => {
   return (
-    <AppBar position="static" variant='elevation' color='transparent'>
-      <Toolbar>
-        <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={onMenuClick}>
-          <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          {displayName}{' '}
-          <Typography variant="caption" component="sup" sx={{ fontSize: '0.7rem', opacity: 0.5 }}>
-            v{version}
-          </Typography>
-        </Typography>
+    <header className="sticky top-0 w-full border-b px-4 shadow-slate-400 shadow-sm z-0">
+      <div className="flex h-14 items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Button variant="icon" size="icon" className="shrink-0" onClick={onMenuClick} title="Abrir barra lateral">
+            <Menu />
+          </Button>
+          <h1 className="text-xl font-semibold">{displayName}</h1>
+          <sup className="text-muted-foreground">v{version}</sup>
+        </div>
+
         <MenuProfile />
-      </Toolbar>
-    </AppBar>
+      </div>
+    </header>
   );
 };
 

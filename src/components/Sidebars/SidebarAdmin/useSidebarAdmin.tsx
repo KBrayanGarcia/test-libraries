@@ -1,9 +1,7 @@
-import { useTheme } from "@mui/material";
 
 const useSidebarAdmin = () => {
-  const theme = useTheme();
 
-  return { theme };
+  return {  };
 };
 
 export default useSidebarAdmin;

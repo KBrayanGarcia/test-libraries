@@ -1,7 +1,7 @@
 import { defaultData, Person } from '@/APIS/fakedata';
 import { CustomTable } from '@/components/Tablas/Genericos/TableFactory';
 import { TableType } from '@/components/Tablas/Genericos/types';
-import { Box, Card, CardContent, CardHeader } from '@mui/material';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { createFileRoute } from '@tanstack/react-router';
 import { ColumnDef } from '@tanstack/react-table';
 
@@ -38,9 +38,11 @@ const columns: ColumnDef<Person>[] = [
 
 function RouteComponent() {
   return (
-    <Box>
+    <div>
       <Card>
-        <CardHeader title="Tabla local" />
+        <CardHeader>
+          <CardTitle>Tabla local</CardTitle>
+        </CardHeader>
         <CardContent>
           <CustomTable
             columns={columns}
@@ -50,6 +52,6 @@ function RouteComponent() {
           />
         </CardContent>
       </Card>
-    </Box>
+    </div>
   );
 }

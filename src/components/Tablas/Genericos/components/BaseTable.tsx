@@ -1,4 +1,4 @@
-import { Paper, Table, TableContainer } from '@mui/material';
+import { Table } from '@/components/ui/table';
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { TableHeader } from './TableHeader';
 import { TableBody } from './TableBody';
@@ -18,11 +18,11 @@ export function BaseTable<T extends object>({ fn, queryKey, ...tableHooksProps }
   });
 
   return (
-    <TableContainer component={Paper} sx={{ overflow: 'auto', maxWidth: '100%' }}>
-      <Table aria-label="data table" sx={{ height: '100%', maxWidth: '100%' }}>
+    <div className="overflow-auto max-w-full">
+      <Table className="h-full max-w-full">
         <TableHeader headers={table.getHeaderGroups()} />
         <TableBody rows={table.getRowModel().rows} isLoading={isLoading} />
       </Table>
-    </TableContainer>
+    </div>
   );
 }
