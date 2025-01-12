@@ -1,13 +1,13 @@
-import { Theme, useMediaQuery } from '@mui/material';
+import { useMediaQuery } from '../genericos/useMediaQuery';
 import { useState } from 'react';
 
 export const useStatePageAdmin = () => {
   const [collapsed, setCollapsed] = useState(true);
   const [toggled, setToggled] = useState(false);
-  const mediaQuery = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery('md', 'down');
 
   const openSidebar = () => {
-    if (mediaQuery) {
+    if (isMobile) {
       setCollapsed(false);
       handleToggleSidebar();
     } else {
@@ -30,4 +30,3 @@ export const useStatePageAdmin = () => {
     openSidebar,
   };
 };
-
